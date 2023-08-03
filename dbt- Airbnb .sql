@@ -1,5 +1,5 @@
 
--- Raw listing transformation
+-- Raw_listing transformation
 
 WITH raw_listings AS (
     SELECT * FROM AIRBNB.RAW.RAW_LISTINGS
@@ -12,9 +12,43 @@ listing_url,
 room_type,
 minimum_nights,
 host_id,
-price AS proce_str,
+price AS price_str,
 created_at,
 updated_at
 
 FROM 
     raw_listings
+	
+-- Raw_reviews data transformation
+
+WITH raw_reviews AS(
+
+SELECT * FROM AIRBNB.RAW.RAW_REVIEWS
+)
+
+SELECT
+listing_id, 
+date AS review_date, 
+reviewer_name,
+comments AS review_text,
+sentiment AS review_sentiment
+
+FROM
+    raw_reviews
+	
+	
+-- Raw_hosts data transformation
+WITH raw_hosts AS(
+
+SELECT * FROM AIRBNB.RAW.RAW_HOSTS
+)
+
+SELECT
+id AS host_id,
+name AS host_name,
+is_superhost,
+created_at,
+updated_at
+
+FROM
+    raw_hosts
