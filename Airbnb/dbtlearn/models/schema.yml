@@ -34,22 +34,27 @@ models:
           - positive_value
 
   - name: dim_hosts_cleansed
-    columns:
+    description: Cleansed table which contains Airbnb hosts
+    columns: 
       - name: host_id
+        description: The ID of the host. This is the primary key.
         tests:
           - not_null
           - unique
 
       - name: host_name
+        description: This is the name of the host
         tests:
           - not_null
 
       - name: is_superhost
+        description: Defines whether the hosts is a superhost,
         tests:
           - accepted_values:
               values: ['t', 'f']
 
   - name: fct_reviews
+    description: The reviews,the references the listing ID
     columns:
       - name: listing_id
         tests:
@@ -58,10 +63,12 @@ models:
               field: listing_id
 
       - name: reviewer_name
+        description: This refers to the nme of the reviewer
         tests:
           - not_null
 
       - name: review_sentiment
+        description: The sentiment of the reviewer
         tests:
           - accepted_values:
               values: ['positive', 'neutral', 'negative']
