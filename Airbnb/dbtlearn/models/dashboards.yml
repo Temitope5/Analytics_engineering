@@ -1,17 +1,16 @@
 version: 2
 
 exposures:
-  - name : Airbnb Executive Dashboard
-  type: dashboard
-  maturity: low
-  url: https://62736a1c.us1a.app.preset.io/superset/dashboard/p/LrBkJnDogN7/
-  description: Executive Dashboard about Airbnb listings and hosts
+  - name: Airbnb Executive Dashboard
+    type: dashboard
+    maturity: low
+    url: https://62736a1c.us1a.app.preset.io/superset/dashboard/p/LrBkJnDogN7/
+    description: Executive Dashboard about Airbnb listings and hosts
 
-  
-  depends_on:
-    - ref('dim_listings_w_hosts')
-    - ref('mart_fullmoon_review')
+    depends_on:
+      - ref('dim_listings_w_hosts')
+      - ref('mart_fullmoon_review')
 
-  owner:
-    name: Temitope Olagoke
-    email: temitopeolagoke01@gmail.com
+    owner:
+      name: Temitope Olagoke
+      email: temitopeolagoke01@gmail.com
