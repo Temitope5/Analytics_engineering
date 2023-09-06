@@ -1,4 +1,5 @@
 packages:
+  - git: "https://github.com/dbt-labs/dbt-utils.git"
+    version: 0.9.1
   - package: calogica/dbt_expectations
-    version: [">=0.9.0", "<0.10.0"]
-    # <see https://github.com/calogica/dbt-expectations/releases/latest> for the latest version tag
+    version: [">=0.8.0", "<0.9.0"]

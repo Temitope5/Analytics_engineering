@@ -1,0 +1,6 @@
+NYC_Yellow_Taxi:
+  outputs:
+    dev:
+      type: duckdb
+      path: dbt.duckdb
+  target: dev

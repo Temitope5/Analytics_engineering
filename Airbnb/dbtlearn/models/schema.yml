@@ -1,6 +1,6 @@
 version: 2
 
-models: 
+models:
   - name: dim_listings_cleansed
     description: Cleansed table which contains Airbnb listings.
     columns:
@@ -24,37 +24,54 @@ models:
         tests:
           - accepted_values:
               values: ['Entire home/apt',
-                        'Private room',
-                        'Shared room',
-                        'Hotel room']
+                      'Private room',
+                      'Shared room',
+                      'Hotel room']
 
       - name: minimum_nights
-        description: '{{doc("dim_listing_cleansed__minimum_nights") }}'
+        description: '{{ doc("dim_listing_cleansed__minimum_nights") }}'
         tests:
           - positive_value
 
   - name: dim_hosts_cleansed
-    description: Cleansed table which contains Airbnb hosts
-    columns: 
+    description: Cleansed table for the Airbnb hosts
+    columns:
       - name: host_id
-        description: The ID of the host. This is the primary key.
+        description: The id of the host. This is the primary key.
         tests:
           - not_null
           - unique
-
+      
       - name: host_name
-        description: This is the name of the host
+        description: The name of the host
         tests:
           - not_null
-
+      
       - name: is_superhost
-        description: Defines whether the hosts is a superhost,
+        description: Defines whether the hosts is a superhost.
         tests:
           - accepted_values:
               values: ['t', 'f']
 
+  - name: dim_listings_w_hosts
+    tests:
+      - dbt_expectations.expect_table_row_count_to_equal_other_table:
+          compare_model: source('airbnb', 'listings')
+    columns:
+      - name: price
+        tests:
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: number
+          - dbt_expectations.expect_column_quantile_values_to_be_between:
+              quantile: .99
+              min_value: 50
+              max_value: 500
+          - dbt_expectations.expect_column_max_to_be_between:
+              max_value: 5000
+              config:
+                severity: warn
+
   - name: fct_reviews
-    description: The reviews,the references the listing ID
     columns:
       - name: listing_id
         tests:
@@ -63,16 +80,10 @@ models:
               field: listing_id
 
       - name: reviewer_name
-        description: This refers to the nme of the reviewer
         tests:
           - not_null
-
+      
       - name: review_sentiment
-        description: The sentiment of the reviewer
         tests:
           - accepted_values:
               values: ['positive', 'neutral', 'negative']
-
-
-
-        
