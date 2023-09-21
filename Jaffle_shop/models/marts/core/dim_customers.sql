@@ -31,7 +31,7 @@ customer_orders as (
 
 payment as(
     select *
-    from {{ ref('stg_payments')}}
+    from {{ ref('stg_payments') }}
 )
 ,
 final as (
