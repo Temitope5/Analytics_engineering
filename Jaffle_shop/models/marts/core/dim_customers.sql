@@ -1,8 +1,3 @@
-{{
-  config(
-    materialized='view'
-  )
-}}
 
 with customers as (
 
@@ -34,6 +29,11 @@ customer_orders as (
 
 ),
 
+payment as(
+    select *
+    from {{ ref('stg_payments')}}
+)
+,
 final as (
 
     select
@@ -43,10 +43,11 @@ final as (
         customer_orders.first_order_date,
         customer_orders.most_recent_order_date,
         coalesce(customer_orders.number_of_orders, 0) as number_of_orders
-
+        
     from customers
 
     left join customer_orders using (customer_id)
+
 
 )
 
