@@ -36,9 +36,5 @@ models:
     marts:
       core:
         +materialized: table
-  stripe:
-    marts:
-      core:
-        +materialized: table
     staging: 
       +materialized: view
